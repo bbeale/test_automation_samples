@@ -1,0 +1,20 @@
+actor: ApiTester
+modules:
+    enabled:
+        - \Helper\Api
+        - \Helper\DataManagement
+        - REST:
+              depends: PhpBrowser
+              url: %api_url%  # from local yaml config
+              part: Json
+        - Db:
+              dsn: %dsn%
+              user: %db_user%
+              password: %db_password%
+              dump: 'tests/_data/dump.sql'
+              populate: false
+              cleanup: false
+              reconnect: true
+        - Asserts
+        - PhpBrowser:
+              url: %api_url%
